@@ -16,6 +16,7 @@ var alpha=["A","B","C","D","E","F","G","H","I","J"];
   let url=window.location.href;
   let tmp=url.split("?");
   const id=tmp[1];
+  url=url.replace("view","poll");
   let optionMain="";
 
 
@@ -24,7 +25,7 @@ var alpha=["A","B","C","D","E","F","G","H","I","J"];
    if(poll.id==id){
     let key=snap.key;
     let optRef=dbRef.child('polls/'+key+'/options');
-    let optnBtnlistUI=document.getElementById("options-btn-list");
+    
     let optnResultlistUI=document.getElementById("result-list");
     let title=document.querySelector("#poll-title");
     title.textContent=poll.title;
@@ -42,33 +43,14 @@ var alpha=["A","B","C","D","E","F","G","H","I","J"];
       $p.append($lbl);
       let $span=document.createElement("span");
       $span.innerHTML=options[opt];
-      $span.setAttribute("class","optn-value-hidden");
+      $span.setAttribute("class","optn-value-visible");
       $span.setAttribute("id","value-"+alpha[x]);
+
       $p.append($span);
       optnResultlistUI.append($p);
-      let $btn=document.createElement("button");
-      $btn.innerHTML = alpha[x];
-      $btn.setAttribute("class", "option-btn"); 
-      //$btn.setAttribute("onclick","optnClick("+opt+")");
-      
-      $btn.addEventListener('click',()=>{
-        //alert(opt);
-        //let optvalueUI=document.querySelector("#value-"+opt);
-        let allOptUI=document.getElementsByClassName("optn-value-hidden");
-        for (var i = allOptUI.length - 1; i >= 0; i--) {
-          allOptUI[i].setAttribute("class","optn-value-visible")
-        }
-        let optvalueUI=document.querySelector("#value-"+$btn.textContent);
-        let optvalue=optvalueUI.textContent;
-        let value=parseInt(optvalue);
-        value=value+1;
-        optvalueUI.textContent=value;
-        options[opt]=value;
-        optRef.set(options);
-        optnBtnlistUI.remove();
 
-      });
-      optnBtnlistUI.append($btn);
+      
+     
       x++;
 
       //console.log(opt);
@@ -76,9 +58,20 @@ var alpha=["A","B","C","D","E","F","G","H","I","J"];
       //console.log("\n");
 
     }
+    let $p=document.createElement("p");
+    $p.setAttribute("class","result-row");
+      $span=document.createElement("a");
+      let str1="poll link";
+      $span.innerHTML=str1;
+      $span.setAttribute("href",url);
+      $span.setAttribute("class","text-mid-box");
+      $span.addEventListener('click',()=>{
+        window.open(url);
+      });
+      //$span.setAttribute("id","value-"+alpha[x]);
+      $p.append($span);
+      optnResultlistUI.append($p);
 
    }
    
 });
-
-

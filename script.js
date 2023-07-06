@@ -23,7 +23,7 @@ var firebaseConfig = {
    //$div.setAttribute("onclick","clickPoll("+poll.id+")");
 
    $div.addEventListener('click',()=>{
-  alert(poll.id);
+  //alert(poll.id);
   url="poll.html?"+poll.id;
   window.open(url);
    });
@@ -32,7 +32,7 @@ var firebaseConfig = {
 
 function clickPoll(id){
   alert(id);
-  let url="poll.html?"+id;
+  let url="view.html?"+id;
   window.open(url);
 }
 document.getElementById("poll-btn").addEventListener('click',()=>{

@@ -16,33 +16,37 @@ var firebaseConfig = {
 document.getElementById("next").addEventListener('click',()=>{
 	let no_optionsUI=document.querySelector("#in-options");
 	let n=parseInt(no_optionsUI.value);
-	let listUI=document.querySelector("#result-list");
-	let btn=document.getElementById("next");
-	btn.remove();
-	for (let i = 0; i < n; i++) {
-	  let $p=document.createElement("p");
-      $p.setAttribute("class","result-row");
-      let $lbl=document.createElement("label");
-      $lbl.setAttribute("class","text-small");
-      $lbl.innerHTML="option "+(i+1);
-      $p.appendChild($lbl);
-      let $optin=document.createElement("input");
-      $optin.setAttribute("class","text-small");
-      $optin.setAttribute("id","opt"+i);
-      $optin.setAttribute("type","text");
-      $optin.setAttribute("placeholder","option");
-      $optin.setAttribute("value","");
-      $p.appendChild($optin);
-      
-      listUI.append($p);
-
-	}
-	let $btn=document.createElement("button");
-	$btn.innerHTML="create poll";
-	$btn.setAttribute("class","option-btn");
-	$btn.setAttribute("onclick","createPoll("+n+")");
-	listUI.append($btn);
-
+	if(n<=10){
+			let listUI=document.querySelector("#result-list");
+			let btn=document.getElementById("next");
+			btn.remove();
+			for (let i = 0; i < n; i++) {
+			  let $p=document.createElement("p");
+		      $p.setAttribute("class","result-row");
+		      let $lbl=document.createElement("label");
+		      $lbl.setAttribute("class","text-small");
+		      $lbl.innerHTML="option "+(i+1);
+		      $p.appendChild($lbl);
+		      let $optin=document.createElement("input");
+		      $optin.setAttribute("class","text-small");
+		      $optin.setAttribute("id","opt"+i);
+		      $optin.setAttribute("type","text");
+		      $optin.setAttribute("placeholder","option");
+		      $optin.setAttribute("value","");
+		      $p.appendChild($optin);
+		      
+		      listUI.append($p);
+		
+			}
+		let $btn=document.createElement("button");
+		$btn.innerHTML="create poll";
+		$btn.setAttribute("class","option-btn");
+		$btn.setAttribute("onclick","createPoll("+n+")");
+		listUI.append($btn);
+		}
+		else{
+			alert("maximum 10 options");
+		}
 });
 function createPoll(n){
 	let id=getIdTimestamp();
@@ -59,12 +63,13 @@ function createPoll(n){
 		options[$opt.value]=0;
 	}
 	obj["options"]=options;
-	
+	let url="view.html?"+obj["id"];
 
 	
 	pollsRef.push(obj,function(){
-		console.log(obj);
-   		console.log("data has been inserted");
+		//console.log(obj);
+   		//console.log("data has been inserted");
+   		window.open(url);
  })
 }
 function getIdTimestamp(){
