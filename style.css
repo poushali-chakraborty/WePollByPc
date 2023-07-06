@@ -235,3 +235,8 @@ font-size: 12pt;
 	border-radius: 3px;
 	padding: 3px;
 }
+footer{
+	margin-top: 40pt;
+	font-size: .6em;
+	color: #555555;
+}
